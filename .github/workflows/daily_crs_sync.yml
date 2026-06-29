@@ -1,0 +1,63 @@
+name: Daily CRS Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 04:00 UTC = 12:00 Asia/Shanghai
+    - cron: "0 4 * * *"
+
+concurrency:
+  group: daily-crs-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      TZ: Asia/Shanghai
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase
+
+      - name: Record latest CRS JSON
+        id: record
+        run: |
+          python record_gamble_crs.py --output-dir data_record --tz Asia/Shanghai | tee record_output.log
+          saved_json=$(grep '^SAVED_JSON=' record_output.log | tail -n 1 | cut -d= -f2-)
+          if [ -z "$saved_json" ]; then
+            echo "Failed to get SAVED_JSON path from script output"
+            exit 1
+          fi
+          echo "saved_json=$saved_json" >> "$GITHUB_OUTPUT"
+          echo "Saved json: $saved_json"
+
+      - name: Update Supabase table
+        run: |
+          python update_crs.py "${{ steps.record.outputs.saved_json }}"
+
+      - name: Commit JSON archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data_record/*.json
+          if git diff --staged --quiet; then
+            echo "No new JSON files to commit."
+            exit 0
+          fi
+          git commit -m "chore: add daily CRS snapshot"
+          git push
