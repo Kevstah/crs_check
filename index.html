@@ -12,8 +12,22 @@
       color: #1f2937;
     }
     h1 {
-      margin: 0 0 8px;
+      margin: 0;
       font-size: 24px;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .right-tools {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
     }
     .card {
       background: #fff;
@@ -32,6 +46,76 @@
       color: #6b7280;
       font-size: 13px;
     }
+    .meta-row {
+      margin: 0 0 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .meta-row .meta {
+      margin: 0;
+    }
+    .bet-history-hint {
+      color: #ca8a04;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 52%;
+    }
+    .muted {
+      color: #6b7280;
+      font-size: 13px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .btn {
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .btn.primary {
+      background: #111827;
+      border-color: #111827;
+      color: #fff;
+    }
+    .btn.danger {
+      background: #ef4444;
+      border-color: #ef4444;
+      color: #fff;
+    }
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+      align-items: end;
+    }
+    .field label {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13px;
+      color: #4b5563;
+    }
+    .field input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+    }
     .tile-grid {
       display: flex;
       flex-direction: column;
@@ -41,7 +125,6 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(120px, 1fr));
       gap: 8px;
-      min-height: 0;
     }
     .score-tile {
       position: relative;
@@ -66,7 +149,7 @@
     }
     .score-tile .score {
       display: block;
-      color: #000000;
+      color: #000;
       font-size: 18px;
       font-weight: 700;
       margin-top: 6px;
@@ -86,9 +169,22 @@
     .score-tile.count-3 {
       background: #86efac;
     }
+    .bet-row {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .status {
+      margin: 8px 0 16px;
+      font-size: 14px;
+      color: #374151;
+    }
     @media (max-width: 900px) {
       .result-line {
         grid-template-columns: repeat(4, minmax(100px, 1fr));
+      }
+      .filter-grid {
+        grid-template-columns: 1fr;
       }
     }
     @media (max-width: 700px) {
@@ -99,244 +195,558 @@
   </style>
 </head>
 <body>
-  <h1>比分赔率</h1>
-  <section class='card'><h2>周日073 | 南非 vs 加拿大</h2><p class='meta'>2026-06-28 03:00:00 | 世界杯 | matchId=2040327</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='0' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>14.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>34.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>16.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>70.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>75.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>250.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>200.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>250.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>700.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>600.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>700.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>300.0</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='0' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>9.25</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>6.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>16.50</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>55.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>250.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='0' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>5.90</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>6.40</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>13.50</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>34.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>5.80</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>10.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>31.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>95.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>27.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>60.00</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='0' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>75.00</span></button></div></div></section>
-<section class='card'><h2>周一074 | 巴西 vs 日本</h2><p class='meta'>2026-06-29 01:00:00 | 世界杯 | matchId=2040337</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='1' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>6.90</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>6.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>12.50</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>10.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>20.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>29.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>28.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>125.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>55.00</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='1' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>11.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>13.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>45.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>250.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='1' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>14.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>29.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>350.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>15.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>200.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>46.00</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>200.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='1' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>200.0</span></button></div></div></section>
-<section class='card'><h2>周一075 | 德国 vs 巴拉圭</h2><p class='meta'>2026-06-29 04:30:00 | 世界杯 | matchId=2040344</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='2' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>6.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>7.70</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>24.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>14.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>16.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>45.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>30.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>40.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>90.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>23.00</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='2' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>15.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>18.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>80.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>400.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='2' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>23.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>60.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>175.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>800.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>24.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>100.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>350.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>800.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>85.00</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>350.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>800.0</span></button>
-<button class='score-tile' data-match-index='2' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>350.0</span></button></div></div></section>
-<section class='card'><h2>周一076 | 荷兰 vs 摩洛哥</h2><p class='meta'>2026-06-29 09:00:00 | 世界杯 | matchId=2040338</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='3' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>6.50</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>6.25</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>17.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>13.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>24.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>80.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>125.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>175.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>80.00</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='3' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>8.75</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>5.75</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>12.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>300.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='3' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>10.50</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>22.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>55.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>200.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>12.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>36.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>45.00</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='3' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>250.0</span></button></div></div></section>
-<section class='card'><h2>周二077 | 科特迪瓦 vs 挪威</h2><p class='meta'>2026-06-30 01:00:00 | 世界杯 | matchId=2040345</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='4' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>12.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>19.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>10.50</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>30.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>35.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>175.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>100.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>125.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>150.0</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='4' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>12.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>6.20</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>12.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>50.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>300.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='4' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>7.25</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>15.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>35.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>100.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>6.75</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>13.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>35.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>100.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>23.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>60.00</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='4' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>60.00</span></button></div></div></section>
-<section class='card'><h2>周二078 | 法国 vs 瑞典</h2><p class='meta'>2026-06-30 05:00:00 | 世界杯 | matchId=2040346</p><div class='tile-grid'><div class='result-line home-win-line'><button class='score-tile' data-match-index='5' data-score-key='s01s00' type='button'><span class='counter'></span><span class='score'>1:0</span><span class='odd'>8.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s00' type='button'><span class='counter'></span><span class='score'>2:0</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s01' type='button'><span class='counter'></span><span class='score'>2:1</span><span class='odd'>7.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s03s00' type='button'><span class='counter'></span><span class='score'>3:0</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s03s01' type='button'><span class='counter'></span><span class='score'>3:1</span><span class='odd'>8.50</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s03s02' type='button'><span class='counter'></span><span class='score'>3:2</span><span class='odd'>20.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s04s00' type='button'><span class='counter'></span><span class='score'>4:0</span><span class='odd'>14.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s04s01' type='button'><span class='counter'></span><span class='score'>4:1</span><span class='odd'>15.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s04s02' type='button'><span class='counter'></span><span class='score'>4:2</span><span class='odd'>35.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s05s00' type='button'><span class='counter'></span><span class='score'>5:0</span><span class='odd'>30.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s05s01' type='button'><span class='counter'></span><span class='score'>5:1</span><span class='odd'>35.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s05s02' type='button'><span class='counter'></span><span class='score'>5:2</span><span class='odd'>70.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s1sh' type='button'><span class='counter'></span><span class='score'>胜其他</span><span class='odd'>18.00</span></button></div><div class='result-line draw-line'><button class='score-tile' data-match-index='5' data-score-key='s00s00' type='button'><span class='counter'></span><span class='score'>0:0</span><span class='odd'>20.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s01s01' type='button'><span class='counter'></span><span class='score'>1:1</span><span class='odd'>9.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s02' type='button'><span class='counter'></span><span class='score'>2:2</span><span class='odd'>15.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s03s03' type='button'><span class='counter'></span><span class='score'>3:3</span><span class='odd'>60.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s1sd' type='button'><span class='counter'></span><span class='score'>平其他</span><span class='odd'>400.0</span></button></div><div class='result-line away-win-line'><button class='score-tile' data-match-index='5' data-score-key='s00s01' type='button'><span class='counter'></span><span class='score'>0:1</span><span class='odd'>24.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s00s02' type='button'><span class='counter'></span><span class='score'>0:2</span><span class='odd'>55.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s00s03' type='button'><span class='counter'></span><span class='score'>0:3</span><span class='odd'>150.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s00s04' type='button'><span class='counter'></span><span class='score'>0:4</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s00s05' type='button'><span class='counter'></span><span class='score'>0:5</span><span class='odd'>800.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s01s02' type='button'><span class='counter'></span><span class='score'>1:2</span><span class='odd'>20.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s01s03' type='button'><span class='counter'></span><span class='score'>1:3</span><span class='odd'>70.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s01s04' type='button'><span class='counter'></span><span class='score'>1:4</span><span class='odd'>300.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s01s05' type='button'><span class='counter'></span><span class='score'>1:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s03' type='button'><span class='counter'></span><span class='score'>2:3</span><span class='odd'>55.00</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s04' type='button'><span class='counter'></span><span class='score'>2:4</span><span class='odd'>300.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s02s05' type='button'><span class='counter'></span><span class='score'>2:5</span><span class='odd'>500.0</span></button>
-<button class='score-tile' data-match-index='5' data-score-key='s1sa' type='button'><span class='counter'></span><span class='score'>负其他</span><span class='odd'>200.0</span></button></div></div></section>
+  <div id="loginRoot" class="card">
+    <h1>登录</h1>
+    <p class="muted">登录成功后展示比赛页面并允许提交下注。</p>
+    <form id="loginForm">
+      <div class="field" style="margin-bottom:8px;">
+        <label for="userName">用户名 (user_name)</label>
+        <input id="userName" required />
+      </div>
+      <div class="field" style="margin-bottom:10px;">
+        <label for="userKey">密码 (user_key)</label>
+        <input id="userKey" type="password" required />
+      </div>
+      <button class="btn primary" id="loginBtn" type="submit">登录</button>
+    </form>
+    <p id="loginStatus" class="status"></p>
+  </div>
+
+  <div id="appRoot" class="hidden">
+    <div class="toolbar">
+      <h1>比分赔率</h1>
+      <div class="right-tools">
+        <span id="currentUser" class="muted"></span>
+        <button id="toggleFilter" class="btn" type="button">高级筛选</button>
+        <button id="logoutBtn" class="btn danger" type="button">退出登录</button>
+      </div>
+    </div>
+
+    <section id="filterPanel" class="card hidden">
+      <div class="filter-grid">
+        <div class="field">
+          <label for="startDate">开始日期</label>
+          <input id="startDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="endDate">结束日期</label>
+          <input id="endDate" type="date" />
+        </div>
+        <div class="field">
+          <label for="teamKeyword">球队关键词</label>
+          <input id="teamKeyword" placeholder="如 巴西 / 日 / 德" />
+        </div>
+      </div>
+      <div style="margin-top:10px; display:flex; gap:8px;">
+        <button id="applyFilterBtn" class="btn primary" type="button">应用筛选</button>
+        <button id="resetFilterBtn" class="btn" type="button">重置</button>
+      </div>
+    </section>
+
+    <p id="globalStatus" class="status"></p>
+    <div id="matchesRoot"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app_config.js"></script>
+  <script>
+    const APP_CONFIG = window.APP_CONFIG || {
+      supabaseUrl: "",
+      supabaseAnonKey: ""
+    };
+  </script>
   <script>
     (() => {
-      const countersByMatch = new Map();
-      const tiles = Array.from(document.querySelectorAll(".score-tile"));
+      const { createClient } = window.supabase || {};
+      const loginRoot = document.getElementById("loginRoot");
+      const appRoot = document.getElementById("appRoot");
+      const loginForm = document.getElementById("loginForm");
+      const loginStatus = document.getElementById("loginStatus");
+      const loginBtn = document.getElementById("loginBtn");
+      const currentUserEl = document.getElementById("currentUser");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const toggleFilterBtn = document.getElementById("toggleFilter");
+      const filterPanel = document.getElementById("filterPanel");
+      const startDateEl = document.getElementById("startDate");
+      const endDateEl = document.getElementById("endDate");
+      const teamKeywordEl = document.getElementById("teamKeyword");
+      const applyFilterBtn = document.getElementById("applyFilterBtn");
+      const resetFilterBtn = document.getElementById("resetFilterBtn");
+      const globalStatus = document.getElementById("globalStatus");
+      const matchesRoot = document.getElementById("matchesRoot");
+
+      if (!createClient) {
+        loginStatus.textContent = "Supabase SDK 加载失败。";
+        return;
+      }
+      if (!APP_CONFIG.supabaseUrl || !APP_CONFIG.supabaseAnonKey) {
+        loginStatus.textContent = "缺少前端配置：请在页面脚本中填写 supabaseUrl / supabaseAnonKey。";
+        return;
+      }
+
+      const supabase = createClient(APP_CONFIG.supabaseUrl, APP_CONFIG.supabaseAnonKey);
+      const USER_KEY = "crs_logged_user";
+      const scoresByMatch = new Map();
+      const existingBetsByMatch = new Map();
+      let allMatches = [];
+
+      function setGlobalStatus(message, level = "info") {
+        globalStatus.textContent = message || "";
+        if (!message) {
+          globalStatus.style.color = "#374151";
+          return;
+        }
+        if (level === "error") {
+          globalStatus.style.color = "#b91c1c";
+        } else if (level === "success") {
+          globalStatus.style.color = "#047857";
+        } else {
+          globalStatus.style.color = "#374151";
+        }
+      }
+
+      function setMatchStatus(cardEl, message, level = "info") {
+        const statusEl = cardEl.querySelector(".bet-status");
+        if (!statusEl) return;
+        statusEl.textContent = message || "";
+        if (!message) {
+          statusEl.style.color = "#6b7280";
+          return;
+        }
+        if (level === "error") {
+          statusEl.style.color = "#b91c1c";
+        } else if (level === "success") {
+          statusEl.style.color = "#047857";
+        } else {
+          statusEl.style.color = "#374151";
+        }
+      }
+
+      function getBeijingNow() {
+        const now = new Date();
+        const utcMs = now.getTime() + now.getTimezoneOffset() * 60000;
+        return new Date(utcMs + 8 * 3600000);
+      }
+
+      function formatDateForInput(dateObj) {
+        const y = dateObj.getFullYear();
+        const m = String(dateObj.getMonth() + 1).padStart(2, "0");
+        const d = String(dateObj.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+      }
+
+      function parseMatchTime(matchTimeText) {
+        // match_time format: YYYY-MM-DD HH:MM:SS, interpret as +08:00
+        const normalized = (matchTimeText || "").replace(" ", "T");
+        if (!normalized) return null;
+        const dateObj = new Date(`${normalized}+08:00`);
+        return Number.isNaN(dateObj.getTime()) ? null : dateObj;
+      }
+
+      function normalizeGuessLabel(scoreLabel) {
+        if (/^\d+:\d+$/.test(scoreLabel)) return scoreLabel.replace(":", "-");
+        return scoreLabel;
+      }
+
+      function groupBucket(scoreLabel) {
+        if (scoreLabel === "胜其他") return 0;
+        if (scoreLabel === "平其他") return 1;
+        if (scoreLabel === "负其他") return 2;
+        const m = scoreLabel.match(/^(\d+):(\d+)$/);
+        if (!m) return 3;
+        const home = Number(m[1]);
+        const away = Number(m[2]);
+        if (home > away) return 0;
+        if (home === away) return 1;
+        return 2;
+      }
+
+      function initDefaultFilter() {
+        const bj = getBeijingNow();
+        const end = new Date(bj.getTime() + 3 * 24 * 3600000);
+        startDateEl.value = formatDateForInput(bj);
+        endDateEl.value = formatDateForInput(end);
+        teamKeywordEl.value = "";
+      }
+
+      function getActiveUser() {
+        return localStorage.getItem(USER_KEY) || "";
+      }
+
+      function setActiveUser(userName) {
+        if (userName) localStorage.setItem(USER_KEY, userName);
+        else localStorage.removeItem(USER_KEY);
+      }
+
+      function showLogin(message = "") {
+        loginRoot.classList.remove("hidden");
+        appRoot.classList.add("hidden");
+        loginStatus.textContent = message;
+      }
+
+      function showApp(userName) {
+        loginRoot.classList.add("hidden");
+        appRoot.classList.remove("hidden");
+        currentUserEl.textContent = `当前用户：${userName}`;
+      }
+
+      async function verifyLogin(userName, userKey) {
+        const { data, error } = await supabase.rpc("verify_user", {
+          p_user_name: userName,
+          p_user_key: userKey
+        });
+        if (error) throw error;
+        return data === true;
+      }
+
+      async function loadMatches() {
+        setGlobalStatus("加载比赛数据中...", "info");
+        const { data, error } = await supabase
+          .from("crs_match_info")
+          .select("match_id, match_time, match_category, match_home_team, match_away_team, crs")
+          .order("match_time", { ascending: true });
+        if (error) throw error;
+        allMatches = (data || []).map((item) => ({
+          ...item,
+          crsObj: typeof item.crs === "string" ? JSON.parse(item.crs) : (item.crs || {})
+        }));
+        setGlobalStatus("", "info");
+        renderMatches();
+      }
+
+      async function loadExistingBetsForUser(userName) {
+        existingBetsByMatch.clear();
+        const { data, error } = await supabase
+          .from("user_bet_history")
+          .select("match_id, guess, guess_ratio")
+          .eq("user_name", userName)
+          .eq("is_deleted", false);
+        if (error) throw error;
+        for (const row of data || []) {
+          const key = String(row.match_id);
+          if (!existingBetsByMatch.has(key)) existingBetsByMatch.set(key, []);
+          existingBetsByMatch.get(key).push({
+            guess: row.guess,
+            guess_ratio: row.guess_ratio
+          });
+        }
+      }
+
+      function formatBetHistoryText(matchId) {
+        const rows = existingBetsByMatch.get(String(matchId)) || [];
+        if (rows.length === 0) return "";
+        return rows.map((x) => `${x.guess}(${x.guess_ratio})`).join(" ");
+      }
+
+      function updateCardBetHistoryHint(cardEl, matchId) {
+        const hintEl = cardEl.querySelector(".bet-history-hint");
+        if (!hintEl) return;
+        hintEl.textContent = formatBetHistoryText(matchId);
+      }
+
+      function getFilteredMatches() {
+        const keyword = (teamKeywordEl.value || "").trim().toLowerCase();
+        const start = startDateEl.value ? new Date(`${startDateEl.value}T00:00:00+08:00`) : null;
+        const end = endDateEl.value ? new Date(`${endDateEl.value}T23:59:59+08:00`) : null;
+
+        return allMatches.filter((match) => {
+          const t = parseMatchTime(match.match_time);
+          if (!t) return false;
+          if (start && t < start) return false;
+          if (end && t > end) return false;
+          if (keyword) {
+            const text = `${match.match_home_team || ""} ${match.match_away_team || ""}`.toLowerCase();
+            if (!text.includes(keyword)) return false;
+          }
+          return true;
+        });
+      }
+
+      function ensureMatchState(matchId, crsObj) {
+        if (scoresByMatch.has(matchId)) return scoresByMatch.get(matchId);
+        const map = new Map();
+        Object.entries(crsObj || {}).forEach(([score, odd]) => {
+          map.set(score, { count: 0, odd: String(odd) });
+        });
+        scoresByMatch.set(matchId, map);
+        return map;
+      }
+
+      function getTotalCount(matchMap) {
+        let total = 0;
+        for (const { count } of matchMap.values()) total += count;
+        return total;
+      }
 
       function setTileCount(tile, count) {
-        tile.dataset.count = String(count);
         tile.classList.remove("count-1", "count-2", "count-3");
-        if (count >= 1 && count <= 3) {
-          tile.classList.add(`count-${count}`);
-        }
+        if (count >= 1 && count <= 3) tile.classList.add(`count-${count}`);
         const counter = tile.querySelector(".counter");
         if (!counter) return;
         if (count <= 0) {
           counter.style.display = "none";
           counter.textContent = "";
+        } else {
+          counter.style.display = "inline";
+          counter.textContent = String(count);
+        }
+      }
+
+      function updateBetButtonVisibility(cardEl, matchMap) {
+        const betBtn = cardEl.querySelector(".bet-btn");
+        if (!betBtn) return;
+        betBtn.classList.toggle("hidden", getTotalCount(matchMap) !== 3);
+      }
+
+      function resetOneMatch(cardEl, matchMap) {
+        for (const [score] of matchMap.entries()) {
+          matchMap.get(score).count = 0;
+        }
+        cardEl.querySelectorAll(".score-tile").forEach((tile) => setTileCount(tile, 0));
+        updateBetButtonVisibility(cardEl, matchMap);
+      }
+
+      function renderMatches() {
+        const matches = getFilteredMatches();
+        if (matches.length === 0) {
+          matchesRoot.innerHTML = "<p class='muted'>当前筛选条件下没有比赛。</p>";
           return;
         }
-        counter.style.display = "inline";
-        counter.textContent = String(count);
+
+        matchesRoot.innerHTML = "";
+        for (const match of matches) {
+          const matchId = match.match_id;
+          const matchMap = ensureMatchState(matchId, match.crsObj);
+          const entries = Array.from(matchMap.entries()).sort((a, b) => {
+            const ba = groupBucket(a[0]);
+            const bb = groupBucket(b[0]);
+            if (ba !== bb) return ba - bb;
+            return a[0].localeCompare(b[0], "zh");
+          });
+
+          const groups = [[], [], []];
+          entries.forEach(([score, v]) => {
+            const bucket = groupBucket(score);
+            if (bucket <= 2) groups[bucket].push([score, v]);
+          });
+
+          const card = document.createElement("section");
+          card.className = "card";
+          const historyHint = formatBetHistoryText(matchId);
+          card.innerHTML = `
+            <h2>${match.match_home_team} vs ${match.match_away_team}</h2>
+            <div class="meta-row">
+              <p class="meta">${match.match_time} | ${match.match_category} | matchId=${matchId}</p>
+              <span class="bet-history-hint">${historyHint}</span>
+            </div>
+            <div class="tile-grid">
+              <div class="result-line home-win-line"></div>
+              <div class="result-line draw-line"></div>
+              <div class="result-line away-win-line"></div>
+            </div>
+            <div class="bet-row">
+              <button class="btn primary bet-btn hidden" type="button">下注</button>
+            </div>
+            <p class="bet-status muted"></p>
+          `;
+
+          const lineEls = [
+            card.querySelector(".home-win-line"),
+            card.querySelector(".draw-line"),
+            card.querySelector(".away-win-line")
+          ];
+
+          groups.forEach((group, idx) => {
+            for (const [score, valueObj] of group) {
+              const tile = document.createElement("button");
+              tile.type = "button";
+              tile.className = "score-tile";
+              tile.dataset.score = score;
+              tile.innerHTML = `
+                <span class="counter"></span>
+                <span class="score">${score}</span>
+                <span class="odd">${valueObj.odd}</span>
+              `;
+              setTileCount(tile, valueObj.count);
+
+              tile.addEventListener("click", () => {
+                const state = matchMap.get(score);
+                state.count += 1;
+                if (getTotalCount(matchMap) > 3) {
+                  resetOneMatch(card, matchMap);
+                  return;
+                }
+                setTileCount(tile, state.count);
+                updateBetButtonVisibility(card, matchMap);
+              });
+
+              lineEls[idx].appendChild(tile);
+            }
+          });
+
+          const betBtn = card.querySelector(".bet-btn");
+          betBtn.addEventListener("click", async () => {
+            betBtn.disabled = true;
+            setMatchStatus(card, "");
+            try {
+              await submitBet(match, matchMap, card);
+            } catch (err) {
+              setMatchStatus(card, `下注失败：${err.message || err}`, "error");
+            } finally {
+              betBtn.disabled = false;
+            }
+          });
+
+          updateBetButtonVisibility(card, matchMap);
+          matchesRoot.appendChild(card);
+        }
       }
 
-      function resetMatch(matchIndex) {
-        const matchCounters = countersByMatch.get(matchIndex);
-        if (!matchCounters) return;
-        for (const [scoreKey] of matchCounters) {
-          matchCounters.set(scoreKey, 0);
+      async function submitBet(match, matchMap, cardEl) {
+        const userName = getActiveUser();
+        if (!userName) throw new Error("登录状态已失效，请重新登录。");
+        const matchStart = parseMatchTime(match.match_time);
+        if (!matchStart) {
+          throw new Error("比赛时间解析失败，无法下注。");
         }
-        tiles
-          .filter((tile) => tile.dataset.matchIndex === matchIndex)
-          .forEach((tile) => setTileCount(tile, 0));
-      }
-
-      function getMatchTotal(matchCounters) {
-        let total = 0;
-        for (const value of matchCounters.values()) {
-          total += value;
+        const now = new Date();
+        const msToStart = matchStart.getTime() - now.getTime();
+        if (msToStart <= 3600000) {
+          setMatchStatus(
+            cardEl,
+            `比赛【${match.match_home_team}-${match.match_away_team}】开赛前1小时内禁止下注。`,
+            "error"
+          );
+          return;
         }
-        return total;
-      }
 
-      for (const tile of tiles) {
-        const matchIndex = tile.dataset.matchIndex || "";
-        const scoreKey = tile.dataset.scoreKey || "";
-        if (!countersByMatch.has(matchIndex)) {
-          countersByMatch.set(matchIndex, new Map());
-        }
-        countersByMatch.get(matchIndex).set(scoreKey, 0);
-        setTileCount(tile, 0);
-
-        tile.addEventListener("click", () => {
-          const matchCounters = countersByMatch.get(matchIndex);
-          if (!matchCounters) return;
-          const next = (matchCounters.get(scoreKey) || 0) + 1;
-          matchCounters.set(scoreKey, next);
-
-          if (getMatchTotal(matchCounters) > 3) {
-            resetMatch(matchIndex);
-            return;
+        const expanded = [];
+        for (const [score, v] of matchMap.entries()) {
+          for (let i = 0; i < v.count; i += 1) {
+            expanded.push({
+              score,
+              odd: v.odd
+            });
           }
-          setTileCount(tile, next);
+        }
+        if (expanded.length !== 3) {
+          throw new Error("每场比赛需要恰好选择 3 次。");
+        }
+
+        const { data: existing, error: queryErr } = await supabase
+          .from("user_bet_history")
+          .select("guess, guess_ratio")
+          .eq("user_name", userName)
+          .eq("match_id", match.match_id)
+          .eq("is_deleted", false);
+        if (queryErr) throw queryErr;
+
+        if (existing && existing.length > 0) {
+          existingBetsByMatch.set(String(match.match_id), existing);
+          const prev = existing.map((x) => `${x.guess}(${x.guess_ratio})`).join(", ");
+          const matchAbb = `${match.match_home_team}-${match.match_away_team}`;
+          const shouldContinue = window.confirm(
+            `你之前已下注比赛【${matchAbb}】: ${prev}\n点击“确定”将覆盖为本次选择。`
+          );
+          if (!shouldContinue) return;
+
+          const bj = getBeijingNow();
+          const deletedAt = `${bj.getFullYear()}-${String(bj.getMonth() + 1).padStart(2, "0")}-${String(bj.getDate()).padStart(2, "0")} ${String(bj.getHours()).padStart(2, "0")}:${String(bj.getMinutes()).padStart(2, "0")}:${String(bj.getSeconds()).padStart(2, "0")}`;
+          const { error: updErr } = await supabase
+            .from("user_bet_history")
+            .update({ is_deleted: true, deleted_at: deletedAt })
+            .eq("user_name", userName)
+            .eq("match_id", match.match_id)
+            .eq("is_deleted", false);
+          if (updErr) throw updErr;
+        }
+
+        const matchAbb = `${match.match_home_team}-${match.match_away_team}`;
+        const rows = expanded.map((x) => ({
+          match_id: match.match_id,
+          match_abb: matchAbb,
+          guess: normalizeGuessLabel(x.score),
+          guess_ratio: x.odd,
+          user_name: userName
+        }));
+        const { error: insErr } = await supabase
+          .from("user_bet_history")
+          .insert(rows);
+        if (insErr) throw insErr;
+        existingBetsByMatch.set(
+          String(match.match_id),
+          rows.map((x) => ({ guess: x.guess, guess_ratio: x.guess_ratio }))
+        );
+        updateCardBetHistoryHint(cardEl, match.match_id);
+        setMatchStatus(
+          cardEl,
+          `下注成功：${match.match_home_team}-${match.match_away_team}（共3条）`,
+          "success"
+        );
+      }
+
+      async function handleLoginSubmit(event) {
+        event.preventDefault();
+        loginBtn.disabled = true;
+        loginStatus.textContent = "登录中...";
+        try {
+          const userName = (document.getElementById("userName").value || "").trim();
+          const userKey = (document.getElementById("userKey").value || "").trim();
+          if (!userName || !userKey) throw new Error("请填写用户名和密码。");
+          const ok = await verifyLogin(userName, userKey);
+          if (!ok) throw new Error("用户名或密码错误。");
+
+          setActiveUser(userName);
+          showApp(userName);
+          await loadExistingBetsForUser(userName);
+          await loadMatches();
+          loginStatus.textContent = "";
+        } catch (err) {
+          const msg = String(err?.message || err || "");
+          if (msg.includes("Could not find the function public.verify_user")) {
+            loginStatus.textContent = "数据库缺少 verify_user 函数，请先执行 supabase_rpc.sql。";
+          } else {
+            loginStatus.textContent = msg;
+          }
+        } finally {
+          loginBtn.disabled = false;
+        }
+      }
+
+      function bindEvents() {
+        loginForm.addEventListener("submit", handleLoginSubmit);
+        logoutBtn.addEventListener("click", () => {
+          setActiveUser("");
+          showLogin("已退出登录。");
+        });
+        toggleFilterBtn.addEventListener("click", () => {
+          filterPanel.classList.toggle("hidden");
+        });
+        applyFilterBtn.addEventListener("click", renderMatches);
+        resetFilterBtn.addEventListener("click", () => {
+          initDefaultFilter();
+          renderMatches();
         });
       }
+
+      async function bootstrap() {
+        bindEvents();
+        initDefaultFilter();
+        const existingUser = getActiveUser();
+        if (!existingUser) {
+          showLogin("");
+          return;
+        }
+        showApp(existingUser);
+        try {
+          await loadExistingBetsForUser(existingUser);
+          await loadMatches();
+        } catch (err) {
+          showLogin(`自动登录失败: ${err.message || err}`);
+        }
+      }
+
+      bootstrap();
     })();
   </script>
 </body>
