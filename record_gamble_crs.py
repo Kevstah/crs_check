@@ -1,8 +1,13 @@
+import argparse
 import json
+import shutil
+import subprocess
+import time
 from datetime import datetime
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 
 API_URL = (
@@ -29,32 +34,98 @@ def fetch_crs_data() -> dict:
     return json.loads(body)
 
 
-def build_output_path() -> Path:
-    output_dir = Path("data_record")
+def fetch_crs_data_via_curl() -> dict:
+    curl_bin = shutil.which("curl") or shutil.which("curl.exe")
+    if not curl_bin:
+        raise RuntimeError("curl is not available in PATH.")
+
+    command = [curl_bin, "-sS", API_URL]
+    for header_key, header_value in HEADERS.items():
+        command.extend(["-H", f"{header_key}: {header_value}"])
+
+    result = subprocess.run(
+        command,
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+    )
+    return json.loads(result.stdout)
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Fetch CRS odds and save to JSON.")
+    parser.add_argument(
+        "--output-dir",
+        default="data_record",
+        help="Directory to save JSON file (default: data_record).",
+    )
+    parser.add_argument(
+        "--tz",
+        default="Asia/Shanghai",
+        help="IANA timezone name for output filename timestamp (default: Asia/Shanghai).",
+    )
+    parser.add_argument(
+        "--retries",
+        type=int,
+        default=3,
+        help="Max attempts when API request fails (default: 3).",
+    )
+    parser.add_argument(
+        "--retry-delay",
+        type=float,
+        default=2.0,
+        help="Seconds to wait between retries (default: 2.0).",
+    )
+    return parser.parse_args()
+
+
+def build_output_path(output_dir: str, tz_name: str) -> Path:
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     # Windows filename does not allow ":"; use "-" for time separators.
-    timestamp = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+    timestamp = datetime.now(ZoneInfo(tz_name)).strftime("%Y-%m-%d %H-%M-%S")
     filename = f"gamble_record_{timestamp}.json"
     return output_dir / filename
 
 
 def main() -> None:
-    try:
-        payload = fetch_crs_data()
-    except HTTPError as err:
-        raise SystemExit(f"HTTP error: {err.code} {err.reason}") from err
-    except URLError as err:
-        raise SystemExit(f"Network error: {err.reason}") from err
-    except json.JSONDecodeError as err:
-        raise SystemExit(f"Invalid JSON response: {err}") from err
+    args = parse_args()
+    retries = max(args.retries, 1)
+    payload = None
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            payload = fetch_crs_data()
+            break
+        except (HTTPError, URLError, json.JSONDecodeError) as err:
+            last_error = err
+            try:
+                payload = fetch_crs_data_via_curl()
+                print("Primary fetch failed, fallback to curl succeeded.")
+                break
+            except Exception as curl_err:
+                last_error = curl_err
+            if attempt < retries:
+                print(f"Fetch attempt {attempt}/{retries} failed: {err}. Retrying...")
+                time.sleep(max(args.retry_delay, 0.0))
 
-    output_path = build_output_path()
+    if payload is None:
+        raise SystemExit(f"Fetch failed after {retries} attempts: {last_error}")
+
+    try:
+        output_path = build_output_path(args.output_dir, args.tz)
+    except Exception as err:
+        raise SystemExit(f"Invalid timezone '{args.tz}': {err}") from err
+
     output_path.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
 
     print(f"Saved: {output_path}")
+    # Machine-readable output for CI workflows.
+    print(f"SAVED_JSON={output_path.as_posix()}")
 
 
 if __name__ == "__main__":
