@@ -37,6 +37,7 @@ jobs:
       - name: Record latest CRS JSON
         id: record
         run: |
+          set -euo pipefail
           python record_gamble_crs.py --output-dir data_record --tz Asia/Shanghai | tee record_output.log
           saved_json=$(grep '^SAVED_JSON=' record_output.log | tail -n 1 | cut -d= -f2-)
           if [ -z "$saved_json" ]; then
