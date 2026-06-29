@@ -31,6 +31,8 @@ def fetch_crs_data() -> dict:
     request = Request(API_URL, headers=HEADERS, method="GET")
     with urlopen(request, timeout=20) as response:
         body = response.read().decode("utf-8")
+    if not body.strip():
+        raise ValueError("Empty response body from API.")
     return json.loads(body)
 
 
@@ -50,7 +52,10 @@ def fetch_crs_data_via_curl() -> dict:
         text=True,
         encoding="utf-8",
     )
-    return json.loads(result.stdout)
+    body = result.stdout.strip()
+    if not body:
+        raise ValueError("Empty response body from curl API request.")
+    return json.loads(body)
 
 
 def parse_args() -> argparse.Namespace:
@@ -98,16 +103,20 @@ def main() -> None:
         try:
             payload = fetch_crs_data()
             break
-        except (HTTPError, URLError, json.JSONDecodeError) as err:
+        except (HTTPError, URLError, json.JSONDecodeError, ValueError) as err:
             last_error = err
             try:
                 payload = fetch_crs_data_via_curl()
                 print("Primary fetch failed, fallback to curl succeeded.")
                 break
             except Exception as curl_err:
-                last_error = curl_err
+                last_error = RuntimeError(
+                    f"Primary error: {err}; curl fallback error: {curl_err}"
+                )
             if attempt < retries:
-                print(f"Fetch attempt {attempt}/{retries} failed: {err}. Retrying...")
+                print(
+                    f"Fetch attempt {attempt}/{retries} failed: {last_error}. Retrying..."
+                )
                 time.sleep(max(args.retry_delay, 0.0))
 
     if payload is None:
