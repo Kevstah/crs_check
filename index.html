@@ -52,6 +52,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
     .meta-row .meta {
       margin: 0;
@@ -60,11 +61,13 @@
       color: #ca8a04;
       font-size: 13px;
       font-weight: 700;
-      text-align: right;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 52%;
+      text-align: left;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      word-break: break-word;
+      max-width: 100%;
+      width: 100%;
     }
     .muted {
       color: #6b7280;
